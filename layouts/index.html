@@ -1,8 +1,10 @@
 {{- define "main" -}}
-{{- $.Scratch.Add "about" "about" -}}
+{{- $.Scratch.Add "news" "news" -}}
+{{- $.Scratch.Add "bio" "bio" -}}
+{{- $.Scratch.Add "tour" "tour" -}}
 {{- $.Scratch.Add "store" "store" -}}
 {{- $.Scratch.Add "contact" "contact" -}}
-{{- range $pagesect := (slice "about" "store" "contact") -}}
+{{- range $pagesect := (slice "news" "bio" "tour" "store" "contact") -}}
 {{- if isset $.Params $pagesect -}}
 {{- $param_pagesect := index $.Params $pagesect -}}
 {{- if isset $param_pagesect "rename" -}}
@@ -22,7 +24,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        {{- range $pagesect := ( slice "about" "store" "contact" ) -}}
+        {{- range $pagesect := ( slice "news" "bio" "tour" "store" "contact" ) -}}
         {{- if isset $.Params $pagesect -}}
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger improve-contrast-box"
@@ -64,28 +66,63 @@
 </header>
 {{ end }}
 
-<!-- About Section -->
-{{- if isset $.Params "about" -}}
-<section id="{{ .Scratch.Get "about" }}" class="content-section text-center">
+<!-- News Section -->
+{{- if isset $.Params "news" -}}
+<section id="{{ .Scratch.Get "news" }}" class="content-section text-center">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h2>{{- default "" $.Params.about.header | safeHTML -}}</h2>
-        <p>{{- default "" $.Params.about.text | safeHTML -}}</p>
+        <h2>{{- default "" $.Params.news.header | safeHTML -}}</h2>
+        <p>{{- default "" $.Params.news.text | safeHTML -}}</p>
       </div>
     </div>
   </div>
 </section>
 {{- end -}}
 
-<!-- Download Section -->
-{{- if isset $.Params "download" -}}
-<section id="{{ .Scratch.Get "download" }}" class="download-section content-section text-center">
+<!-- Bio Section -->
+{{- if isset $.Params "bio" -}}
+<section id="{{ .Scratch.Get "bio" }}" class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>{{- default "" $.Params.bio.header | safeHTML -}}</h2>
+        {{- default "" $.Params.bio.text | safeHTML -}}
+      </div>
+    </div>
+  </div>
+</section>
+{{- end -}}
+
+
+<!-- Tour Section -->
+{{- if isset $.Params "tour" -}}
+<section id="{{ .Scratch.Get "tour" }}" class="content-section text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>{{- default "" $.Params.tour.header | safeHTML -}}</h2>
+        {{ range $i, $t := $.Site.Data.tour.dates }}
+        <div class="row tour">
+          <div class="col-3">{{ index $t 0 }}</div>
+          <div class="col text-center">{{ index $t 1 }}</div>
+          <div class="col-4 righty">{{ index $t 2 }}</div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- end -}}
+
+<!-- Store Section -->
+{{- if isset $.Params "store" -}}
+<section id="{{ .Scratch.Get "store" }}" class="store-section content-section text-center">
   <div class="container">
     <div class="col-lg-8 mx-auto">
       <div class="improve-contrast-box">
-        <h2>{{- default "" $.Params.download.header | safeHTML -}}</h2>
-        <p>{{- default "" $.Params.download.text | safeHTML -}}</p>
+        <h2>{{- default "" $.Params.store.header | safeHTML -}}</h2>
+        {{- default "" $.Params.store.text | safeHTML -}}
       </div>
     </div>
   </div>
