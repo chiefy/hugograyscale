@@ -1,10 +1,10 @@
 {{- define "main" -}}
 {{- $.Scratch.Add "news" "news" -}}
+{{- $.Scratch.Add "newalbum" "newalbum" -}}
 {{- $.Scratch.Add "bio" "bio" -}}
-{{- $.Scratch.Add "tour" "tour" -}}
 {{- $.Scratch.Add "store" "store" -}}
 {{- $.Scratch.Add "contact" "contact" -}}
-{{- range $pagesect := (slice "news" "bio" "tour" "store" "contact") -}}
+{{- range $pagesect := (slice "news" "newalbum" "bio" "store" "contact") -}}
 {{- if isset $.Params $pagesect -}}
 {{- $param_pagesect := index $.Params $pagesect -}}
 {{- if isset $param_pagesect "rename" -}}
@@ -24,7 +24,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        {{- range $pagesect := ( slice "news" "bio" "tour" "store" "contact" ) -}}
+        {{- range $pagesect := ( slice "news" "newalbum" "bio" "store" "contact" ) -}}
         {{- if isset $.Params $pagesect -}}
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger improve-contrast-box"
@@ -53,6 +53,7 @@
       <div class="row">
         <div class="col-lg-10 mx-auto">
           <div class="improve-contrast-box">
+            <h1 class="artist-heading">{{ default "" $.Params.intro.artist | safeHTML }}</h1>
             <h1 class="brand-heading">{{ default "" $.Params.intro.header | safeHTML }}</h1>
             <p class="intro-text">{{- default "" $.Params.intro.text | safeHTML -}}</p>
           </div>
@@ -80,6 +81,20 @@
 </section>
 {{- end -}}
 
+<!-- New Album Section -->
+{{- if isset $.Params "newalbum" -}}
+<section id="{{ .Scratch.Get "news" }}" class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>{{- default "" $.Params.newalbum.header | safeHTML -}}</h2>
+        <p>{{- default "" $.Params.newalbum.text | safeHTML -}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{{- end -}}
+
 <!-- Bio Section -->
 {{- if isset $.Params "bio" -}}
 <section id="{{ .Scratch.Get "bio" }}" class="content-section">
@@ -96,7 +111,7 @@
 
 
 <!-- Tour Section -->
-{{- if isset $.Params "tour" -}}
+{{- if and (isset $.Params "tour") (gt (len $.Site.Data.tour.dates) 0) -}}
 <section id="{{ .Scratch.Get "tour" }}" class="content-section text-center">
   <div class="container">
     <div class="row">
