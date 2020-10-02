@@ -1,10 +1,11 @@
 {{- define "main" -}}
-{{- $.Scratch.Add "news" "news" -}}
 {{- $.Scratch.Add "newalbum" "newalbum" -}}
+{{- $.Scratch.Add "linernotes" "linernotes" -}}
+
 {{- $.Scratch.Add "bio" "bio" -}}
 {{- $.Scratch.Add "store" "store" -}}
 {{- $.Scratch.Add "contact" "contact" -}}
-{{- range $pagesect := (slice "news" "newalbum" "bio" "store" "contact") -}}
+{{- range $pagesect := (slice "news" "newalbum" "linernotes" "bio" "store" "contact") -}}
 {{- if isset $.Params $pagesect -}}
 {{- $param_pagesect := index $.Params $pagesect -}}
 {{- if isset $param_pagesect "rename" -}}
@@ -24,7 +25,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        {{- range $pagesect := ( slice "news" "newalbum" "bio" "store" "contact" ) -}}
+        {{- range $pagesect := ( slice "news" "newalbum" "linernotes" "bio" "store" "contact" ) -}}
         {{- if isset $.Params $pagesect -}}
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger improve-contrast-box"
@@ -57,7 +58,7 @@
             <h1 class="brand-heading">{{ default "" $.Params.intro.header | safeHTML }}</h1>
             <p class="intro-text">{{- default "" $.Params.intro.text | safeHTML -}}</p>
           </div>
-          <a href="#{{ .Scratch.Get "news" }}" class="btn btn-circle js-scroll-trigger">
+          <a href="#{{ .Scratch.Get "newalbum" }}" class="btn btn-circle js-scroll-trigger">
             <i class="fa fa-angle-double-down animated"></i>
           </a>
         </div>
@@ -83,12 +84,25 @@
 
 <!-- New Album Section -->
 {{- if isset $.Params "newalbum" -}}
-<section id="{{ .Scratch.Get "newalbum" }}" class="content-section">
+<section id="{{ .Scratch.Get "newalbum" }}" class="content-section text-center">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h2>{{- default "" $.Params.newalbum.header | safeHTML -}}</h2>
-        <p>{{- default "" $.Params.newalbum.text | safeHTML -}}</p>
+        <video controls src="../media/coulditbe_promo.mp4" width="620">
+        </video>
+        <h5>Video by <a href="https://twitter.com/rachelichtman">Rachel Lichtman</a></h5>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Liner Notes Section -->
+<section id="{{ .Scratch.Get "linernotes" }}" class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>{{- default "" $.Params.linernotes.header | safeHTML -}}</h2>
+        <p>{{- default "" $.Params.linernotes.text | safeHTML -}}</p>
       </div>
     </div>
   </div>
