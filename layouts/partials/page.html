@@ -1,0 +1,19 @@
+<!-- Intro Header -->
+<header class="masthead">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="improve-contrast-box">
+                        <h1 class="artist-heading">{{ default "" $.Params.intro.artist | safeHTML }}</h1>
+                        <h1 class="brand-heading">{{ default "" $.Params.intro.header | safeHTML }}</h1>
+                        <p class="intro-text">{{- default "" $.Params.intro.text | safeHTML -}}</p>
+                    </div>
+                    <a href="#{{ .Scratch.Get "live" }}" class="btn btn-circle js-scroll-trigger">
+                        <i class="fa fa-angle-double-down animated"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

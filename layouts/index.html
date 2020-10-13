@@ -1,11 +1,10 @@
 {{- define "main" -}}
-{{- $.Scratch.Add "newalbum" "newalbum" -}}
+{{- $.Scratch.Add "live" "live" -}}
 {{- $.Scratch.Add "linernotes" "linernotes" -}}
-
 {{- $.Scratch.Add "bio" "bio" -}}
 {{- $.Scratch.Add "store" "store" -}}
 {{- $.Scratch.Add "contact" "contact" -}}
-{{- range $pagesect := (slice "news" "newalbum" "linernotes" "bio" "store" "contact") -}}
+{{- range $pagesect := (slice "live" "linernotes" "bio" "store" "contact") -}}
 {{- if isset $.Params $pagesect -}}
 {{- $param_pagesect := index $.Params $pagesect -}}
 {{- if isset $param_pagesect "rename" -}}
@@ -25,7 +24,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        {{- range $pagesect := ( slice "news" "newalbum" "linernotes" "bio" "store" "contact" ) -}}
+        {{- range $pagesect := ( slice "live" "linernotes" "bio" "store" "contact" ) -}}
         {{- if isset $.Params $pagesect -}}
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger improve-contrast-box"
@@ -58,7 +57,7 @@
             <h1 class="brand-heading">{{ default "" $.Params.intro.header | safeHTML }}</h1>
             <p class="intro-text">{{- default "" $.Params.intro.text | safeHTML -}}</p>
           </div>
-          <a href="#{{ .Scratch.Get "newalbum" }}" class="btn btn-circle js-scroll-trigger">
+          <a href="#{{ .Scratch.Get "live" }}" class="btn btn-circle js-scroll-trigger">
             <i class="fa fa-angle-double-down animated"></i>
           </a>
         </div>
@@ -82,15 +81,20 @@
 </section>
 {{- end -}}
 
-<!-- New Album Section -->
-{{- if isset $.Params "newalbum" -}}
-<section id="{{ .Scratch.Get "newalbum" }}" class="content-section text-center">
+<!-- Live Section -->
+{{- if isset $.Params "live" -}}
+<section id="{{ .Scratch.Get "live" }}" class="content-section">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <video controls src="../media/coulditbe_promo.mp4" width="620">
-        </video>
-        <h5>Video by <a href="https://twitter.com/rachelichtman">Rachel Lichtman</a></h5>
+        <h2>{{- default "" $.Params.live.header | safeHTML -}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <p>{{- default "" $.Params.live.text | safeHTML -}}</p>
+        <p><img src="../img/joe_sm.jpg" style="width: 550px;" alt="Joe Pernice" /></p>
+        <h6>Photo: Colleen Nicholson</h6>
       </div>
     </div>
   </div>
